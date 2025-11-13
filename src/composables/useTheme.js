@@ -6,12 +6,11 @@ const initTheme = () => {
   if (typeof window === 'undefined') return
 
   const stored = localStorage.getItem('theme')
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 
   if (stored) {
     isDark.value = stored === 'dark'
   } else {
-    isDark.value = prefersDark
+    isDark.value = false
   }
 
   applyTheme()
@@ -29,13 +28,6 @@ const applyTheme = () => {
 
 if (typeof window !== 'undefined') {
   initTheme()
-  
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      isDark.value = e.matches
-      applyTheme()
-    }
-  })
 }
 
 export function useTheme() {
